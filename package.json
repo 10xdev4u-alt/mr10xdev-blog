@@ -1,0 +1,24 @@
+{
+  "name": "mr10xdev-blog",
+  "version": "0.1.0",
+  "description": "Mr. 10x Dev's personal blog, auto-maintained by gitagent",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "typecheck": "astro check"
+  },
+  "keywords": [
+    "blog",
+    "personal",
+    "ai",
+    "agent",
+    "10xdev"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}
