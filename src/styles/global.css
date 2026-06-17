@@ -16,6 +16,21 @@
   --max-width: 760px;
 }
 
+/* Light theme overrides */
+:root[data-theme="light"] {
+  --bg: #fafbfc;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #f3f4f6;
+  --fg: #0b0d10;
+  --fg-muted: #4a5258;
+  --fg-dim: #6b7480;
+  --accent: #e55a2b;
+  --accent-soft: rgba(229, 90, 43, 0.10);
+  --link: #0969da;
+  --border: #d0d7de;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
 * {
   box-sizing: border-box;
 }
