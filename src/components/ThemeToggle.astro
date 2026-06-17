@@ -1,0 +1,57 @@
+---
+/**
+ * ThemeToggle — a tiny client-side component that toggles light/dark mode.
+ * Defaults to dark. Persists the choice in localStorage.
+ */
+---
+<button
+  id="theme-toggle"
+  class="theme-toggle"
+  aria-label="Toggle theme"
+  title="Toggle light/dark mode"
+>
+  <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+</button>
+
+<script>
+  const STORAGE_KEY = 'mr10xdev-theme';
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+
+  // Load saved theme
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === 'light') {
+    root.setAttribute('data-theme', 'light');
+  } else {
+    root.setAttribute('data-theme', 'dark');
+  }
+
+  // Toggle on click
+  button?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') ?? 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(STORAGE_KEY, next);
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--fg-muted);
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    font-size: 1rem;
+  }
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+</style>
