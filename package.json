@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/og-generator.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "og": "node scripts/og-generator.mjs",
     "typecheck": "astro check"
   },
   "keywords": [
@@ -21,6 +23,10 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^5.0.0"
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@resvg/resvg-js": "^2.6.2",
+    "astro": "^5.0.0",
+    "satori": "^0.26.0"
   }
 }
