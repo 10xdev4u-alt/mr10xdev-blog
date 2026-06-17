@@ -1,0 +1,29 @@
+---
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/now', label: 'Now' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand">Mr. 10x Dev</a>
+    <nav>
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class:list={[{ active: path === item.href || (item.href !== '/' && path.startsWith(item.href)) }]}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

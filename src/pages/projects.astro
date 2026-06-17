@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    name: 'gitagent',
+    description: 'Persistent, versioned AI agents that live in your GitHub repository',
+    stars: 1,
+    url: 'https://github.com/10xdev4u-alt/gitagent',
+    tags: ['ai', 'agent', 'framework', 'typescript'],
+  },
+  {
+    name: 'aether-proxy',
+    description: 'AI gateway with 26 models, Langfuse tracing, Docker deploy',
+    stars: 1,
+    url: 'https://github.com/TeamMavericKX/aether-proxy',
+    tags: ['ai', 'gateway', 'bun', 'observability'],
+  },
+  {
+    name: 'husk',
+    description: 'Minimalist AI agent framework in TypeScript (npm package)',
+    stars: 1,
+    url: 'https://github.com/10xdev4u-alt/husk',
+    tags: ['ai', 'agent', 'framework', 'npm'],
+  },
+  {
+    name: 'pi-studio',
+    description: 'Multi-agent UI for building with AI agents',
+    stars: 1,
+    url: 'https://github.com/10xdev4u-alt/pi-studio',
+    tags: ['ui', 'agent', 'typescript'],
+  },
+  {
+    name: 'project-parasite',
+    description: 'Security research project (16-phase design)',
+    stars: 10,
+    url: 'https://github.com/TeamMavericKX/project-parasite',
+    tags: ['security', 'research', 'cni'],
+  },
+  {
+    name: 'gitissues',
+    description: 'Issues-as-commits: track work directly in git',
+    stars: 1,
+    url: 'https://github.com/TeamMavericKX/gitissues',
+    tags: ['git', 'cli', 'go'],
+  },
+  {
+    name: 'free-kimi-go',
+    description: 'OpenAI-compatible proxy for free models, written in Go',
+    stars: 1,
+    url: 'https://github.com/10xdev4u-alt/free-kimi-go',
+    tags: ['go', 'ai', 'proxy'],
+  },
+  {
+    name: 'brocode',
+    description: 'Vendored opencode CLI',
+    stars: 0,
+    url: 'https://github.com/10xdev4u-alt/brocode',
+    tags: ['cli', 'typescript'],
+  },
+];
+---
+
+<BaseLayout title="Projects — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Projects</h1>
+    <p>Things I'm building. AI infrastructure, dev tools, and the occasional security experiment.</p>
+  </section>
+
+  <section>
+    {projects.map((p) => (
+      <a href={p.url} class="card" style="display: block; color: inherit;">
+        <h3>{p.name}</h3>
+        <p>{p.description}</p>
+        <div style="margin-top: 0.5rem;">
+          {p.tags.map((t) => <span class="tag">{t}</span>)}
+          {p.stars > 0 && <span class="meta" style="margin-left: 0.5rem;">⭐ {p.stars}</span>}
+        </div>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
