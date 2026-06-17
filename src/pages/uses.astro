@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const editor = { name: 'Neovim', version: '0.10+', notes: 'With LSP, Telescope, and Treesitter. No IDE, just keybindings.' };
+const terminal = { name: 'Ghostty', version: '1.0+', notes: 'GPU-accelerated, minimal, fast. Replaces Alacritty.' };
+const shell = { name: 'Bash', version: '5.2+', notes: 'No zsh, no fish. Just bash with a tight .bashrc.' };
+const packageManager = { name: 'npm', version: '10+', notes: 'Yarn, pnpm, bun all have their place. npm wins for compatibility.' };
+const runtime = { name: 'Bun + Node', version: 'Bun 1.3 / Node 22', notes: 'Bun for dev/tests, Node 20+ for production.' };
+const versionControl = { name: 'git + jj', version: 'git 2.45 / jj 0.21+', notes: 'jj for local commits, git for publishing.' };
+const os = { name: 'Arch Linux', version: 'rolling', notes: 'I run a custom Hyprland setup with Waybar.' };
+const windowManager = { name: 'Hyprland', version: '0.45+', notes: 'Tiling, animations, blur, dynamic workspaces. Setup in dotfiles.' };
+const editorFont = { name: 'JetBrains Mono', version: '2.304+', notes: 'With ligatures. Reading code is reading code.' };
+const aiTools = { name: 'Claude + Claude Code + gitagent', version: 'rolling', notes: 'Claude for chat, Claude Code for in-editor help, gitagent for repo maintenance.' };
+---
+
+<BaseLayout title="Uses — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Uses</h1>
+    <p>The tools I use every day. Inspired by <a href="https://uses.tech">uses.tech</a>.</p>
+  </section>
+
+  <section>
+    <h2>Editor & shell</h2>
+    <ul>
+      <li><strong>Editor:</strong> {editor.name} ({editor.version}) — {editor.notes}</li>
+      <li><strong>Terminal:</strong> {terminal.name} ({terminal.version}) — {terminal.notes}</li>
+      <li><strong>Shell:</strong> {shell.name} ({shell.version}) — {shell.notes}</li>
+      <li><strong>Font:</strong> {editorFont.name} ({editorFont.version}) — {editorFont.notes}</li>
+    </ul>
+
+    <h2>Languages & runtimes</h2>
+    <ul>
+      <li><strong>Primary:</strong> TypeScript (strict mode, no any)</li>
+      <li><strong>Secondary:</strong> Go (for CLI tools that need fast startup), Python (for ML experiments)</li>
+      <li><strong>Runtime:</strong> {runtime.name} — {runtime.notes}</li>
+      <li><strong>Package manager:</strong> {packageManager.name} ({packageManager.version}) — {packageManager.notes}</li>
+    </ul>
+
+    <h2>Version control & workflow</h2>
+    <ul>
+      <li><strong>VCS:</strong> {versionControl.name} — {versionControl.notes}</li>
+      <li><strong>Commits:</strong> Conventional commits (feat:, fix:, docs:, test:, chore:, refactor:, perf:)</li>
+      <li><strong>Releases:</strong> Tag-driven, CI auto-publishes to npm</li>
+      <li><strong>Tests:</strong> Vitest, run on every commit</li>
+    </ul>
+
+    <h2>OS & desktop</h2>
+    <ul>
+      <li><strong>OS:</strong> {os.name} ({os.version}) — {os.notes}</li>
+      <li><strong>Window manager:</strong> {windowManager.name} ({windowManager.version}) — {windowManager.notes}</li>
+    </ul>
+
+    <h2>AI tooling</h2>
+    <ul>
+      <li><strong>AI tools:</strong> {aiTools.name} — {aiTools.notes}</li>
+      <li><strong>Models I default to:</strong> Claude Sonnet 4.5 (most things), Claude Haiku 4 (cheap tasks), Claude Opus 4 (hardest things)</li>
+      <li><strong>Local models:</strong> Ollama + Llama 3.1 8B (for offline dev and air-gapped testing)</li>
+    </ul>
+
+    <h2>Hardware</h2>
+    <ul>
+      <li><strong>Laptop:</strong> MacBook Pro 14" M3 Pro, 36GB RAM</li>
+      <li><strong>Monitor:</strong> 27" 4K Dell U2723QE</li>
+      <li><strong>Keyboard:</strong> Keychron K3 (low-profile, mechanical, brown switches)</li>
+      <li><strong>Mouse:</strong> Logitech MX Master 3S</li>
+    </ul>
+  </section>
+</BaseLayout>

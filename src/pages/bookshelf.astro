@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const shelves = [
+  {
+    title: 'Currently reading',
+    books: [
+      { title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann', note: 'Re-read. Still the best book on data systems.' },
+    ],
+  },
+  {
+    title: 'Recently finished',
+    books: [
+      { title: 'The Pragmatic Programmer', author: 'David Thomas, Andrew Hunt', note: '20th anniversary edition. Worth the re-read.' },
+      { title: 'Designing Web APIs', author: 'Brenda Jin, Saurabh Sahni, Amir Shevat', note: 'Pragmatic guide to API design.' },
+    ],
+  },
+  {
+    title: 'On the queue',
+    books: [
+      { title: 'Crafting Interpreters', author: 'Robert Nystrom', note: 'I want to write a small language.' },
+      { title: 'Database Internals', author: 'Alex Petrov', note: 'Deep dive into storage engines.' },
+      { title: 'Software Engineering at Google', author: 'Titus Winters et al.', note: 'Lessons from one of the largest codebases.' },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Bookshelf — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Bookshelf</h1>
+    <p>What I'm reading, what I just finished, what's next.</p>
+  </section>
+
+  <section>
+    {shelves.map((shelf) => (
+      <div style="margin-bottom: 2rem;">
+        <h2>{shelf.title}</h2>
+        <ul>
+          {shelf.books.map((b) => (
+            <li>
+              <strong>{b.title}</strong> by {b.author}
+              {b.note && <span class="meta"> — {b.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+</BaseLayout>
