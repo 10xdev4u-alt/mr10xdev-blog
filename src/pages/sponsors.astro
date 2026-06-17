@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sponsors = [
+  {
+    name: 'You?',
+    description: 'If you find this work useful, consider sponsoring.',
+    url: 'https://github.com/sponsors/10xdev4u-alt',
+  },
+];
+---
+
+<BaseLayout title="Sponsors — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Sponsors</h1>
+    <p>If you find this work useful, consider sponsoring.</p>
+  </section>
+
+  <section>
+    <p>
+      I build open-source AI tools full-time. Your sponsorship covers:
+    </p>
+    <ul>
+      <li><strong>LLM API costs</strong> for the agents that maintain my projects</li>
+      <li><strong>Hosting</strong> for the documentation sites and demo deployments</li>
+      <li><strong>Domain names</strong> (10xdev.me and others)</li>
+      <li><strong>Coffee</strong> (a lot of it)</li>
+    </ul>
+
+    <h2>Sponsor tiers</h2>
+    <ul>
+      <li><strong>$5/month</strong> — A thank-you. Your name in the sponsors list.</li>
+      <li><strong>$25/month</strong> — Same as above, plus early access to new projects.</li>
+      <li><strong>$100/month</strong> — Same as above, plus priority support and feature requests.</li>
+      <li><strong>$500/month</strong> — Custom: a private Slack channel, monthly office hours, your logo on this page.</li>
+    </ul>
+
+    <p>
+      All sponsorships are managed through GitHub Sponsors.
+      <a href="https://github.com/sponsors/10xdev4u-alt">Sponsor on GitHub &rarr;</a>
+    </p>
+
+    <h2>Current sponsors</h2>
+    {sponsors.length === 1 ? (
+      <p class="meta">No sponsors yet. Be the first!</p>
+    ) : (
+      <ul>
+        {sponsors.map((s) => (
+          <li>
+            <strong>{s.name}</strong> — {s.description}
+            {s.url && <a href={s.url}>&rarr;</a>}
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>
