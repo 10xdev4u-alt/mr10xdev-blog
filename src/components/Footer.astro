@@ -1,14 +1,59 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <p>
-      &copy; {year} Princyy (Mr. 10x Dev) &middot;
-      <a href="https://github.com/10xdev4u-alt">GitHub</a> &middot;
-      <a href="https://github.com/10xdev4u-alt/mr10xdev-blog">Source</a> &middot;
-      Built with <a href="https://astro.build">Astro</a>, maintained by <a href="https://github.com/10xdev4u-alt/gitagent">gitagent</a>.
-    </p>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <span class="mark">Mr. 10x Dev</span>
+        <p>
+          Building open-source AI agents that live in your GitHub repo.
+          Field notes from the agent era, shipped daily.
+        </p>
+        <div class="footer-build" style="margin-top: 1rem;">
+          <span class="pulse" aria-hidden="true"></span>
+          <span>13 agents online · 100+ posts · building in public</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Writing</h4>
+        <ul>
+          <li><a href={`${baseUrl}/blog`}>All posts</a></li>
+          <li><a href={`${baseUrl}/tags`}>Tags</a></li>
+          <li><a href={`${baseUrl}/timeline`}>Timeline</a></li>
+          <li><a href={`${baseUrl}/rss.xml`}>RSS feed</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul>
+          <li><a href={`${baseUrl}/projects`}>All projects</a></li>
+          <li><a href="https://github.com/10xdev4u-alt/gitagent" rel="noopener">gitagent</a></li>
+          <li><a href="https://github.com/10xdev4u-alt/mr10xdev-blog" rel="noopener">This site</a></li>
+          <li><a href={`${baseUrl}/acknowledgments`}>Acknowledgments</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href={`${baseUrl}/about`}>About</a></li>
+          <li><a href={`${baseUrl}/now`}>Now</a></li>
+          <li><a href={`${baseUrl}/uses`}>Uses</a></li>
+          <li><a href="https://github.com/10xdev4u-alt" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© {year} 10xdev4u-alt · MIT licensed · built with Astro &amp; gitagent</div>
+      <div class="mono">
+        <a href={`${baseUrl}/rss.xml`}>rss</a> · <a href="https://github.com/10xdev4u-alt/mr10xdev-blog">source</a> · <a href={`${baseUrl}/sitemap-index.xml`}>sitemap</a>
+      </div>
+    </div>
   </div>
 </footer>

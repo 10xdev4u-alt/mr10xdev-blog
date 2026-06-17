@@ -1,32 +1,58 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Search from '../../components/Search.astro';
-import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 
+const baseUrl = import.meta.env.BASE_URL;
 const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function pad(n: number) { return n.toString().padStart(2, '0'); }
 ---
 
-<BaseLayout title="Blog — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Blog</h1>
-    <p>Notes on shipping AI tools, the build-in-public journey, and the meta of being Mr. 10x Dev.</p>
+<BaseLayout
+  title="Writing"
+  description="Field notes on building AI agents — design, deployment, observability, security, and the economics of automation."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{posts.length} dispatches · filed in public</span>
+      </div>
+      <h1 class="fade-up-2">Writing<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        Field notes on building AI agents that live in your repo. Read in
+        any order, no funnel, no popups, no newsletter signup wall.
+      </p>
+    </div>
   </section>
 
-  <Search />
-
-  <section>
-    {posts.length === 0 && <p>(No posts yet. Check back soon.)</p>}
-    {posts.map((post) => (
-      <PostCard
-        url={`/blog/${post.slug}`}
-        title={post.data.title}
-        description={post.data.description}
-        date={post.data.date}
-        tags={post.data.tags}
-      />
-    ))}
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="post-grid">
+        {posts.map((p, i) => (
+          <a class="post-card" href={`${baseUrl}/blog/${p.slug}`}>
+            <div class="card-top">
+              <span class="card-num">{pad(i + 1)}</span>
+              <span>{fmtDate(p.data.date)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p class="excerpt">{p.data.description}</p>
+            <div class="card-foot">
+              <div class="tags">
+                {p.data.tags?.slice(0, 2).map((t) => (
+                  <span class="tag">#{t}</span>
+                ))}
+              </div>
+              <span style="color: var(--accent);">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
   </section>
 </BaseLayout>

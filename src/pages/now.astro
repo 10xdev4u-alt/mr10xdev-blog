@@ -1,41 +1,62 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Now — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Now</h1>
-    <p>What I'm focused on right now. Updated by hand (and soon by an agent).</p>
+<BaseLayout
+  title="Now"
+  description="What I'm focused on right now. Updated by hand (and soon by an agent)."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>now · updated manually · 2026</span>
+      </div>
+      <h1 class="fade-up-2">Now<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        What I'm focused on right now. Updated by hand (and soon by an agent).
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>Active</h2>
-    <ul>
-      <li><strong><a href="/blog/gitagent-launch">gitagent</a></strong> — open-sourcing the
-        GitHub-native agent host. Just hit v0.1 with 45+ commits and 180+ tests.</li>
-      <li><strong>mr10xdev-blog</strong> — this site. Auto-maintained by gitagent.</li>
-    </ul>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <h2>Active</h2>
+        <ul>
+          <li><strong><a href="https://github.com/10xdev4u-alt/gitagent">gitagent</a></strong> — open-sourcing the
+            GitHub-native agent host. 101 commits, 391 tests, deployed.</li>
+          <li><strong>mr10xdev-blog</strong> — this site. Auto-maintained by 13 gitagent agents.</li>
+        </ul>
 
-    <h2>Queued</h2>
-    <ul>
-      <li>PQC dev tooling — post-quantum crypto for the rest of us.</li>
-      <li>Codebuff-style editor — best-of-N implementation experiments.</li>
-      <li>aether-proxy public launch — Docker + Langfuse + 26 models.</li>
-    </ul>
+        <h2>Queued</h2>
+        <ul>
+          <li>PQC dev tooling — post-quantum crypto for the rest of us.</li>
+          <li>Codebuff-style editor — best-of-N implementation experiments.</li>
+          <li>Custom domain for the blog — moving off <code>github.io</code>.</li>
+        </ul>
 
-    <h2>Recently shipped</h2>
-    <ul>
-      <li>Husk v0.8.0 (vector filter + Gemini provider)</li>
-      <li>Husk v0.7.0 (MCP server + SqliteVectorStore)</li>
-      <li>Husk v0.6.0 (MCP client + tool approval)</li>
-      <li>Husk v0.5.0 (streaming + validation framework)</li>
-    </ul>
+        <h2>Recently shipped</h2>
+        <ul>
+          <li>gitagent v0.1.0 — 13 example agents, 7 doc files, 6 example skills</li>
+          <li>mr10xdev-blog — 100 posts, full Astro redesign, 13 agent manifests</li>
+          <li>GitHub Pages deploy — fixed the environment branch policy</li>
+        </ul>
 
-    <h2>Reading</h2>
-    <ul>
-      <li><em>The Pragmatic Programmer</em> (re-read)</li>
-      <li><em>Designing Data-Intensive Applications</em> (always re-reading)</li>
-      <li>Anthropic's Claude Code internals posts</li>
-    </ul>
+        <h2>Reading</h2>
+        <ul>
+          <li><em>Designing Data-Intensive Applications</em> (always re-reading)</li>
+          <li>Anthropic's Claude Code internals posts</li>
+          <li>Stripe Press's essays on developer tools</li>
+        </ul>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

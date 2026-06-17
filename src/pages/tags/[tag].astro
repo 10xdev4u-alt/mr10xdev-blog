@@ -18,27 +18,58 @@ export async function getStaticPaths() {
   }));
 }
 
+const baseUrl = import.meta.env.BASE_URL;
 const { tag } = Astro.params;
 const { posts } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const pad = (n: number) => n.toString().padStart(2, '0');
 ---
 
-<BaseLayout title={`#${tag} — Mr. 10x Dev`}>
-  <section class="hero">
-    <h1>#{tag}</h1>
-    <p>{posts.length} post{posts.length === 1 ? '' : 's'} tagged "{tag}"</p>
+<BaseLayout
+  title={`#${tag}`}
+  description={`Posts tagged "${tag}".`}
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span><a href={`${baseUrl}/tags`}>tags</a> · {tag}</span>
+      </div>
+      <h1 class="fade-up-2">#{tag}<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        {posts.length} post{posts.length === 1 ? '' : 's'} tagged "{tag}".
+      </p>
+    </div>
   </section>
 
-  <section>
-    {posts.map((post) => (
-      <a href={`/blog/${post.slug}`} class="card" style="display: block; color: inherit;">
-        <h3>{post.data.title}</h3>
-        <p class="meta">
-          <time datetime={post.data.date.toISOString()}>
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-        </p>
-        <p>{post.data.description}</p>
-      </a>
-    ))}
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="post-grid">
+        {posts.map((p, i) => (
+          <a class="post-card" href={`${baseUrl}/blog/${p.slug}`}>
+            <div class="card-top">
+              <span class="card-num">{pad(i + 1)}</span>
+              <span>{fmt(p.data.date)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p class="excerpt">{p.data.description}</p>
+            <div class="card-foot">
+              <div class="tags">
+                {p.data.tags?.slice(0, 2).map((t) => (
+                  <span class="tag">#{t}</span>
+                ))}
+              </div>
+              <span style="color: var(--accent);">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p style="text-align: center; margin-top: 3rem;">
+        <a href={`${baseUrl}/blog`} class="btn btn-ghost">← All writing</a>
+      </p>
+    </div>
   </section>
 </BaseLayout>

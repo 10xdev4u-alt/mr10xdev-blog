@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const stats = [
   { label: 'GitHub stars (cumulative)', value: '1000+' },
   { label: 'Public repositories', value: '27' },
@@ -9,7 +11,7 @@ const stats = [
   { label: 'GitHub releases', value: '100+' },
   { label: 'Commits this year', value: '500+' },
   { label: 'Issues closed this year', value: '100+' },
-  { label: 'Blog posts', value: '25+' },
+  { label: 'Blog posts', value: '100+' },
   { label: 'Open-source projects', value: '5+' },
   { label: 'Years building', value: '3' },
 ];
@@ -23,102 +25,64 @@ const languages = [
 ];
 ---
 
-<BaseLayout title="Stats — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Stats</h1>
-    <p>The numbers behind the work.</p>
-  </section>
-
-  <section>
-    <h2>By the numbers</h2>
-    <div class="stats-grid">
-      {stats.map((s) => (
-        <div class="stat">
-          <div class="stat-value">{s.value}</div>
-          <div class="stat-label">{s.label}</div>
-        </div>
-      ))}
+<BaseLayout
+  title="Stats"
+  description="The numbers behind the work."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>stats · the numbers behind the work</span>
+      </div>
+      <h1 class="fade-up-2">Stats<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        The numbers behind the work. Not vanity metrics — a way to
+        track whether I'm actually shipping.
+      </p>
     </div>
   </section>
 
-  <section>
-    <h2>Languages</h2>
-    <p>What I write code in (by lines, last 12 months):</p>
-    <div class="language-bars">
-      {languages.map((l) => (
-        <div class="language-bar">
-          <div class="language-name">{l.name}</div>
-          <div class="language-track">
-            <div class="language-fill" style={`width: ${l.percent}%; background: ${l.color};`}></div>
-          </div>
-          <div class="language-percent">{l.percent}%</div>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <h2>By the numbers</h2>
+        <div class="post-grid">
+          {stats.map((s) => (
+            <div class="card" style="text-align: center;">
+              <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.4rem;">{s.value}</div>
+              <div class="dim mono" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">{s.label}</div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-  </section>
 
-  <section>
-    <h2>What this is</h2>
-    <p>
-      These numbers are pulled from my GitHub profile and a few of my
-      npm package pages. They're updated by hand (or by an agent, soon).
-      They're not vanity metrics — they're a way to track whether I'm
-      actually shipping.
-    </p>
+        <h2>Languages</h2>
+        <p>What I write code in (by lines, last 12 months):</p>
+        <div style="margin: 1.5rem 0;">
+          {languages.map((l) => (
+            <div style="display: grid; grid-template-columns: 120px 1fr 50px; align-items: center; gap: 1rem; margin-bottom: 0.65rem;">
+              <div style="font-weight: 500; font-size: 0.92rem;">{l.name}</div>
+              <div style="background: var(--bg-elev-2); height: 14px; border-radius: 7px; overflow: hidden; border: 1px solid var(--border);">
+                <div style={`width: ${l.percent}%; background: ${l.color}; height: 100%; border-radius: 7px;`}></div>
+              </div>
+              <div class="dim mono" style="font-size: 0.85rem; text-align: right;">{l.percent}%</div>
+            </div>
+          ))}
+        </div>
+
+        <h2>What this is</h2>
+        <p>
+          These numbers are pulled from my GitHub profile and a few of my
+          npm package pages. They're updated by hand (or by an agent, soon).
+          They're not vanity metrics — they're a way to track whether I'm
+          actually shipping.
+        </p>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>
-
-<style>
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-  .stat {
-    background: var(--bg-elev);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-  }
-  .stat-value {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 0.25rem;
-  }
-  .stat-label {
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-  }
-  .language-bars {
-    margin: 1.5rem 0;
-  }
-  .language-bar {
-    display: grid;
-    grid-template-columns: 100px 1fr 40px;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  .language-name {
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-  .language-track {
-    background: var(--bg-elev-2);
-    height: 12px;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .language-fill {
-    height: 100%;
-    border-radius: 6px;
-  }
-  .language-percent {
-    font-size: 0.85rem;
-    color: var(--fg-muted);
-    text-align: right;
-  }
-</style>

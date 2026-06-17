@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const shelves = [
   {
     title: 'Currently reading',
@@ -26,25 +28,45 @@ const shelves = [
 ];
 ---
 
-<BaseLayout title="Bookshelf — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Bookshelf</h1>
-    <p>What I'm reading, what I just finished, what's next.</p>
+<BaseLayout
+  title="Bookshelf"
+  description="What I'm reading, what I just finished, what's next."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>bookshelf · reading list · always growing</span>
+      </div>
+      <h1 class="fade-up-2">Bookshelf<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        What I'm reading, what I just finished, what's next.
+      </p>
+    </div>
   </section>
 
-  <section>
-    {shelves.map((shelf) => (
-      <div style="margin-bottom: 2rem;">
-        <h2>{shelf.title}</h2>
-        <ul>
-          {shelf.books.map((b) => (
-            <li>
-              <strong>{b.title}</strong> by {b.author}
-              {b.note && <span class="meta"> — {b.note}</span>}
-            </li>
-          ))}
-        </ul>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        {shelves.map((shelf) => (
+          <div style="margin-bottom: 2.5rem;">
+            <h2>{shelf.title}</h2>
+            <ul>
+              {shelf.books.map((b) => (
+                <li>
+                  <strong>{b.title}</strong> <span class="muted">by {b.author}</span>
+                  {b.note && <span class="dim"> — {b.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
       </div>
-    ))}
+    </div>
   </section>
 </BaseLayout>

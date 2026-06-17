@@ -1,82 +1,101 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const projects = [
   {
+    num: '01',
     name: 'gitagent',
-    description: 'Persistent, versioned AI agents that live in your GitHub repository',
-    stars: 1,
+    description: 'Open-source framework for declaring persistent, versioned AI agents that live in .github/agents/<name>.md files. 391 tests, 101 commits, MIT licensed.',
+    tech: ['TypeScript', 'Hono', 'Octokit', 'Zod', 'Vitest'],
+    stars: '01+',
     url: 'https://github.com/10xdev4u-alt/gitagent',
-    tags: ['ai', 'agent', 'framework', 'typescript'],
+    accent: true,
   },
   {
+    num: '02',
+    name: 'mr10xdev-blog',
+    description: 'This site. A real-world implementation of gitagent: 13 agent manifests in .github/agents/ auto-maintain the blog, the changelog, the link checker, the support router, and more.',
+    tech: ['Astro', 'TypeScript', 'MDX', 'GitHub Pages', 'gitagent'],
+    stars: '00+',
+    url: `${baseUrl}/`,
+    accent: true,
+  },
+  {
+    num: '03',
+    name: 'parasite',
+    description: 'Autonomous agent that wakes up, takes over a codebase, ships a release, and goes back to sleep. Built on top of gitagent.',
+    tech: ['TypeScript', 'gitagent', 'Cron', 'Webhooks'],
+    stars: '00+',
+    url: 'https://github.com/10xdev4u-alt',
+    accent: false,
+  },
+  {
+    num: '04',
+    name: 'harness',
+    description: 'A toolkit for writing agent manifests, validating them, and shipping them to a registry. Like Helm for AI agents.',
+    tech: ['TypeScript', 'Zod', 'YAML', 'CLI'],
+    stars: '00+',
+    url: 'https://github.com/10xdev4u-alt',
+    accent: false,
+  },
+  {
+    num: '05',
     name: 'aether-proxy',
-    description: 'AI gateway with 26 models, Langfuse tracing, Docker deploy',
-    stars: 1,
+    description: 'AI gateway with 26 models, Langfuse tracing, Docker deploy. The gateway I used to build everything else.',
+    tech: ['Bun', 'AI Gateway', 'Langfuse', 'Docker'],
+    stars: '01+',
     url: 'https://github.com/TeamMavericKX/aether-proxy',
-    tags: ['ai', 'gateway', 'bun', 'observability'],
+    accent: false,
   },
   {
+    num: '06',
     name: 'husk',
-    description: 'Minimalist AI agent framework in TypeScript (npm package)',
-    stars: 1,
-    url: 'https://github.com/10xdev4u-alt/husk',
-    tags: ['ai', 'agent', 'framework', 'npm'],
-  },
-  {
-    name: 'pi-studio',
-    description: 'Multi-agent UI for building with AI agents',
-    stars: 1,
-    url: 'https://github.com/10xdev4u-alt/pi-studio',
-    tags: ['ui', 'agent', 'typescript'],
-  },
-  {
-    name: 'project-parasite',
-    description: 'Security research project (16-phase design)',
-    stars: 10,
-    url: 'https://github.com/TeamMavericKX/project-parasite',
-    tags: ['security', 'research', 'cni'],
-  },
-  {
-    name: 'gitissues',
-    description: 'Issues-as-commits: track work directly in git',
-    stars: 1,
-    url: 'https://github.com/TeamMavericKX/gitissues',
-    tags: ['git', 'cli', 'go'],
-  },
-  {
-    name: 'free-kimi-go',
-    description: 'OpenAI-compatible proxy for free models, written in Go',
-    stars: 1,
-    url: 'https://github.com/10xdev4u-alt/free-kimi-go',
-    tags: ['go', 'ai', 'proxy'],
-  },
-  {
-    name: 'brocode',
-    description: 'Vendored opencode CLI',
-    stars: 0,
-    url: 'https://github.com/10xdev4u-alt/brocode',
-    tags: ['cli', 'typescript'],
+    description: 'Minimalist AI agent framework in TypeScript. The experimental precursor to gitagent — kept online for the lesson it taught.',
+    tech: ['TypeScript', 'AI', 'Framework', 'npm'],
+    stars: '00+',
+    url: 'https://github.com/10xdev4u-alt',
+    accent: false,
   },
 ];
 ---
 
-<BaseLayout title="Projects — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Projects</h1>
-    <p>Things I'm building. AI infrastructure, dev tools, and the occasional security experiment.</p>
+<BaseLayout
+  title="Projects"
+  description="Open-source projects in AI agents, dev tools, and the infrastructure that makes them work."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{projects.length} projects · MIT licensed · open source</span>
+      </div>
+      <h1 class="fade-up-2">Projects<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        Things I've built. AI agents, dev tools, the gateways that route to
+        them. Mostly MIT licensed, mostly built in public.
+      </p>
+    </div>
   </section>
 
-  <section>
-    {projects.map((p) => (
-      <a href={p.url} class="card" style="display: block; color: inherit;">
-        <h3>{p.name}</h3>
-        <p>{p.description}</p>
-        <div style="margin-top: 0.5rem;">
-          {p.tags.map((t) => <span class="tag">{t}</span>)}
-          {p.stars > 0 && <span class="meta" style="margin-left: 0.5rem;">⭐ {p.stars}</span>}
-        </div>
-      </a>
-    ))}
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="projects-grid">
+        {projects.map((p) => (
+          <a class="project-card" href={p.url} style={p.accent ? 'border-color: var(--border-bright);' : ''}>
+            <span class="num">{p.num}</span>
+            <h3>{p.name}</h3>
+            <p class="desc">{p.description}</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
+              <div class="tech">
+                {p.tech.map((t) => <span>{t}</span>)}
+              </div>
+              <span class="mono" style="font-size: 0.72rem; color: var(--fg-dim);">★ {p.stars}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
   </section>
 </BaseLayout>

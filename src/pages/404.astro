@@ -1,9 +1,20 @@
 ---
-import ErrorLayout from '../layouts/ErrorLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<ErrorLayout title="404 — Page not found" description="The page you're looking for doesn't exist. It might have been moved or never existed.">
-  <p style="margin-top: 1rem;">
-    If you arrived here from a link, please <a href="https://github.com/10xdev4u-alt/mr10xdev-blog/issues">open an issue</a> and let me know.
-  </p>
-</ErrorLayout>
+<BaseLayout title="404 — Page not found" noindex={true}>
+  <section class="error-page">
+    <div class="error-code">404</div>
+    <h1>Lost in the agents</h1>
+    <p>
+      The page you're looking for doesn't exist. Maybe an agent moved it,
+      maybe I never wrote it, maybe you typed it wrong.
+    </p>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+      <a href={`${baseUrl}/`} class="btn btn-primary">← Take me home</a>
+      <a href={`${baseUrl}/blog`} class="btn btn-ghost btn-mono">~/blog</a>
+    </div>
+  </section>
+</BaseLayout>

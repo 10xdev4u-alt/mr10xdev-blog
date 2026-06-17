@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const milestones = [
   { date: '2018-01', label: 'Wrote my first line of code', emoji: '💻' },
   { date: '2019-06', label: 'First job as a backend engineer', emoji: '💼' },
@@ -17,24 +19,45 @@ const milestones = [
 ];
 ---
 
-<BaseLayout title="Timeline — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Timeline</h1>
-    <p>Key moments in 8 years of building.</p>
+<BaseLayout
+  title="Timeline"
+  description="Key moments in 8 years of building."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>timeline · 8 years of building</span>
+      </div>
+      <h1 class="fade-up-2">Timeline<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        Key moments in 8 years of building. Updated when something
+        worth remembering happens.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <ol class="timeline">
-      {milestones.map((m) => (
-        <li class="milestone">
-          <span class="emoji">{m.emoji}</span>
-          <div class="content">
-            <time>{m.date}</time>
-            <p>{m.label}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <ol class="timeline">
+          {milestones.map((m) => (
+            <li class="milestone">
+              <span class="emoji">{m.emoji}</span>
+              <div class="content">
+                <time>{m.date}</time>
+                <p>{m.label}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
@@ -52,7 +75,7 @@ const milestones = [
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--border);
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--magenta) 100%);
   }
   .milestone {
     display: flex;
@@ -63,8 +86,8 @@ const milestones = [
   .emoji {
     width: 3rem;
     height: 3rem;
-    background: var(--bg-elev);
-    border: 2px solid var(--border);
+    background: var(--bg-elev-1);
+    border: 2px solid var(--border-bright);
     border-radius: 50%;
     display: flex;
     align-items: center;

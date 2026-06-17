@@ -1,57 +1,63 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const sponsors = [
-  {
-    name: 'You?',
-    description: 'If you find this work useful, consider sponsoring.',
-    url: 'https://github.com/sponsors/10xdev4u-alt',
-  },
-];
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Sponsors — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Sponsors</h1>
-    <p>If you find this work useful, consider sponsoring.</p>
+<BaseLayout
+  title="Sponsors"
+  description="Sponsor Mr. 10x Dev — open-source AI tools, full-time."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>sponsors · support the work</span>
+      </div>
+      <h1 class="fade-up-2">Sponsors<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        I build open-source AI tools full-time. Your sponsorship covers
+        infra, LLM costs, and a lot of coffee.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <p>
-      I build open-source AI tools full-time. Your sponsorship covers:
-    </p>
-    <ul>
-      <li><strong>LLM API costs</strong> for the agents that maintain my projects</li>
-      <li><strong>Hosting</strong> for the documentation sites and demo deployments</li>
-      <li><strong>Domain names</strong> (10xdev.me and others)</li>
-      <li><strong>Coffee</strong> (a lot of it)</li>
-    </ul>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <p>
+          I build open-source AI tools full-time. Your sponsorship covers:
+        </p>
+        <ul>
+          <li><strong>LLM API costs</strong> for the agents that maintain my projects</li>
+          <li><strong>Hosting</strong> for the documentation sites and demo deployments</li>
+          <li><strong>Domain names</strong> (10xdev.me and others)</li>
+          <li><strong>Coffee</strong> (a lot of it)</li>
+        </ul>
 
-    <h2>Sponsor tiers</h2>
-    <ul>
-      <li><strong>$5/month</strong> — A thank-you. Your name in the sponsors list.</li>
-      <li><strong>$25/month</strong> — Same as above, plus early access to new projects.</li>
-      <li><strong>$100/month</strong> — Same as above, plus priority support and feature requests.</li>
-      <li><strong>$500/month</strong> — Custom: a private Slack channel, monthly office hours, your logo on this page.</li>
-    </ul>
+        <h2>Sponsor tiers</h2>
+        <ul>
+          <li><strong>$5/month</strong> — A thank-you. Your name in the sponsors list.</li>
+          <li><strong>$25/month</strong> — Same as above, plus early access to new projects.</li>
+          <li><strong>$100/month</strong> — Same as above, plus priority support and feature requests.</li>
+          <li><strong>$500/month</strong> — Custom: a private Slack channel, monthly office hours, your logo on this page.</li>
+        </ul>
 
-    <p>
-      All sponsorships are managed through GitHub Sponsors.
-      <a href="https://github.com/sponsors/10xdev4u-alt">Sponsor on GitHub &rarr;</a>
-    </p>
+        <p>
+          All sponsorships are managed through GitHub Sponsors.{' '}
+          <a href="https://github.com/sponsors/10xdev4u-alt" rel="noopener">Sponsor on GitHub →</a>
+        </p>
 
-    <h2>Current sponsors</h2>
-    {sponsors.length === 1 ? (
-      <p class="meta">No sponsors yet. Be the first!</p>
-    ) : (
-      <ul>
-        {sponsors.map((s) => (
-          <li>
-            <strong>{s.name}</strong> — {s.description}
-            {s.url && <a href={s.url}>&rarr;</a>}
-          </li>
-        ))}
-      </ul>
-    )}
+        <h2>Current sponsors</h2>
+        <p style="font-family: var(--font-mono); font-size: 0.92rem; color: var(--fg-dim);">
+          No sponsors yet. Be the first.
+        </p>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

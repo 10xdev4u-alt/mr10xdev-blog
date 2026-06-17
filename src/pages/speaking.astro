@@ -1,119 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const talks = [
-  {
-    title: 'Building AI Agents That Maintain Themselves',
-    venue: 'AI Engineer Summit',
-    date: '2026-09-15',
-    location: 'San Francisco, CA',
-    status: 'accepted',
-    type: 'conference',
-    url: '',
-  },
-  {
-    title: 'The Recursive Loop: How Agents Maintain the Tools That Maintain Them',
-    venue: 'Open Source Summit',
-    date: '2026-08-22',
-    location: 'Vancouver, BC',
-    status: 'accepted',
-    type: 'conference',
-    url: '',
-  },
-  {
-    title: 'From Idea to 10x in a Weekend: The Husk Story',
-    venue: 'JSConf',
-    date: '2026-07-10',
-    location: 'Berlin, Germany',
-    status: 'submitted',
-    type: 'conference',
-    url: '',
-  },
-  {
-    title: 'Git as Infrastructure: Why Your Next Agent Lives in Your Repo',
-    venue: 'DevOpsDays',
-    date: '2026-06-05',
-    location: 'Bangalore, India',
-    status: 'pending',
-    type: 'conference',
-    url: '',
-  },
+  { title: 'Building AI Agents That Maintain Themselves', venue: 'AI Engineer Summit', date: '2026-09-15', location: 'San Francisco, CA', status: 'accepted' },
+  { title: 'The Recursive Loop: How Agents Maintain the Tools That Maintain Them', venue: 'Open Source Summit', date: '2026-08-22', location: 'Vancouver, BC', status: 'accepted' },
+  { title: 'From Idea to 10x in a Weekend: The Husk Story', venue: 'JSConf', date: '2026-07-10', location: 'Berlin, Germany', status: 'submitted' },
 ];
 
 const podcasts = [
-  {
-    title: 'The Mr. 10x Dev Story: Shipping 9 Versions in a Day',
-    venue: 'JavaScript Jabber',
-    date: '2026-09-01',
-    status: 'scheduled',
-    url: '',
-  },
-  {
-    title: 'The Future of AI Agents',
-    venue: 'Syntax FM',
-    date: '2026-08-15',
-    status: 'pending',
-    url: '',
-  },
+  { title: 'The Mr. 10x Dev Story: Shipping 9 Versions in a Day', venue: 'JavaScript Jabber', date: '2026-09-01', status: 'scheduled' },
+  { title: 'The Future of AI Agents', venue: 'Syntax FM', date: '2026-08-15', status: 'pending' },
 ];
 ---
 
-<BaseLayout title="Speaking — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Speaking</h1>
-    <p>Where I'll be talking about AI agents, OSS, and the meta of indie building.</p>
+<BaseLayout
+  title="Speaking"
+  description="Upcoming talks and podcast appearances on AI agents, OSS, and the meta of indie building."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>speaking · talks · podcasts</span>
+      </div>
+      <h1 class="fade-up-2">Speaking<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        Where I'll be talking about AI agents, OSS, and the meta of
+        indie building.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <h2>Upcoming talks</h2>
-    {talks.length === 0 ? (
-      <p class="meta">No upcoming talks scheduled. Check back soon.</p>
-    ) : (
-      <ul>
-        {talks.map((t) => (
-          <li>
-            <strong>{t.title}</strong>
-            <br>
-            <span class="meta">
-              {t.venue} · {t.date} · {t.location} · <em>{t.status}</em>
-            </span>
-          </li>
-        ))}
-      </ul>
-    )}
-  </section>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <h2>Upcoming talks</h2>
+        <ul>
+          {talks.map((t) => (
+            <li>
+              <strong>{t.title}</strong>
+              <br />
+              <span class="mono dim" style="font-size: 0.85rem;">
+                {t.venue} · {t.date} · {t.location} · <em>{t.status}</em>
+              </span>
+            </li>
+          ))}
+        </ul>
 
-  <section>
-    <h2>Podcasts</h2>
-    {podcasts.length === 0 ? (
-      <p class="meta">No podcasts scheduled.</p>
-    ) : (
-      <ul>
-        {podcasts.map((p) => (
-          <li>
-            <strong>{p.title}</strong>
-            <br>
-            <span class="meta">
-              {p.venue} · {p.date} · <em>{p.status}</em>
-            </span>
-          </li>
-        ))}
-      </ul>
-    )}
-  </section>
+        <h2>Podcasts</h2>
+        <ul>
+          {podcasts.map((p) => (
+            <li>
+              <strong>{p.title}</strong>
+              <br />
+              <span class="mono dim" style="font-size: 0.85rem;">
+                {p.venue} · {p.date} · <em>{p.status}</em>
+              </span>
+            </li>
+          ))}
+        </ul>
 
-  <section>
-    <h2>Want me to speak?</h2>
-    <p>
-      I speak about AI agents, OSS, indie building, the git-as-
-      infrastructure pattern, and the meta of shipping fast. If
-      you're organizing an event, podcast, or meetup, reach out
-      at <a href="mailto:10xdev4u@gmail.com">10xdev4u@gmail.com</a>.
-    </p>
-    <p>
-      I prefer in-person events but am open to virtual. I can do
-      5-minute lightning talks, 30-minute talks, or 60-minute
-      workshops. Travel covered is appreciated but not required.
-    </p>
+        <h2>Want me to speak?</h2>
+        <p>
+          I speak about AI agents, OSS, indie building, the
+          git-as-infrastructure pattern, and the meta of shipping fast.
+          If you're organizing an event, podcast, or meetup, reach
+          out at <a href="mailto:10xdev4u@gmail.com">10xdev4u@gmail.com</a>.
+        </p>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

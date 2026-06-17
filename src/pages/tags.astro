@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
 const posts = await getCollection('blog');
 const allTags = new Map<string, number>();
 for (const post of posts) {
@@ -12,19 +13,40 @@ for (const post of posts) {
 const sorted = Array.from(allTags.entries()).sort((a, b) => b[1] - a[1]);
 ---
 
-<BaseLayout title="Tags — Mr. 10x Dev">
-  <section class="hero">
-    <h1>Tags</h1>
-    <p>Browse posts by topic.</p>
+<BaseLayout
+  title="Tags"
+  description="Browse posts by topic."
+>
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>{sorted.length} tags · {posts.length} posts</span>
+      </div>
+      <h1 class="fade-up-2">Tags<span style="color: var(--accent);">.</span></h1>
+      <p class="hero-lede fade-up-3">
+        Browse posts by topic. Click a tag to see every post in that
+        category.
+      </p>
+    </div>
   </section>
 
-  <section>
-    <p>
-      {sorted.map(([tag, count]) => (
-        <a href={`/tags/${tag}`} class="tag" style="margin: 0.25rem; font-size: 0.9rem;">
-          {tag} ({count})
-        </a>
-      ))}
-    </p>
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="prose">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          {sorted.map(([tag, count]) => (
+            <a href={`${baseUrl}/tags/${tag}`} class="tag-pill" style="font-size: 0.9rem;">
+              #{tag} <span class="dim">({count})</span>
+            </a>
+          ))}
+        </div>
+
+        <hr />
+        <p style="text-align: center;">
+          <a href={`${baseUrl}/blog`} class="btn btn-ghost">Read the writing →</a>
+        </p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

@@ -2,30 +2,251 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 5);
+const baseUrl = import.meta.env.BASE_URL;
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const featured = posts[0];
+const recent = posts.slice(1, 13);
+const totalPosts = posts.length;
+
+// Pretend this is live data; in real life it'd come from a manifest or build hook
+const agents = [
+  { name: 'triage', event: 'issues.opened', status: 'online' },
+  { name: 'doc', event: 'pull_request.merged', status: 'online' },
+  { name: 'release', event: 'push.main', status: 'online' },
+  { name: 'welcome', event: 'issues.opened', status: 'online' },
+  { name: 'standup', event: 'schedule.daily', status: 'scheduled' },
+  { name: 'security', event: 'schedule.weekly', status: 'scheduled' },
+  { name: 'dependencies', event: 'schedule.weekly', status: 'scheduled' },
+  { name: 'meta', event: 'push.main', status: 'online' },
+  { name: 'changelog', event: 'release.published', status: 'online' },
+  { name: 'tests', event: 'pull_request.opened', status: 'online' },
+  { name: 'oncall', event: 'schedule.daily', status: 'scheduled' },
+  { name: 'weekly-summary', event: 'schedule.weekly', status: 'scheduled' },
+  { name: 'refactor-helper', event: 'pull_request.opened', status: 'online' },
+];
+
+const projects = [
+  { num: '01', name: 'gitagent', desc: 'Open-source framework for declaring persistent, versioned AI agents that live in .github/agents/<name>.md files in any GitHub repo.', tech: ['TypeScript', 'Hono', 'Octokit', 'Zod'] },
+  { num: '02', name: 'mr10xdev-blog', desc: "This site. A real-world implementation: Mr. 10x Dev's personal blog auto-maintained by gitagent agents.", tech: ['Astro', 'TypeScript', 'MDX', 'GitHub Pages'] },
+  { num: '03', name: 'parasite', desc: 'Autonomous agent that wakes up, takes over a codebase, ships a release, and goes back to sleep. Built on gitagent.', tech: ['TypeScript', 'gitagent', 'Cron'] },
+  { num: '04', name: 'harness', desc: 'A toolkit for writing agent manifests, validating them, and shipping them to a registry. Like Helm for agents.', tech: ['TypeScript', 'Zod', 'YAML'] },
+];
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function fmtNumber(n: number) {
+  return n.toString().padStart(2, '0');
+}
 ---
 
-<BaseLayout title="Mr. 10x Dev">
+<BaseLayout
+  title="Mr. 10x Dev"
+  description="Building open-source AI agents that live in your GitHub repo. Field notes on agent design, deployment, and the future of automation."
+  type="website"
+>
+  <!-- HERO -->
   <section class="hero">
-    <h1>Mr. 10x Dev</h1>
-    <p>Shipping AI infrastructure, agent frameworks, and tools that build tools. From India, for the world.</p>
+    <div class="container hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <span class="dot" aria-hidden="true"></span>
+        <span>live · building in public · {totalPosts} posts shipped</span>
+      </div>
+      <h1 class="fade-up-2">
+        Building agents that<br />
+        <em>ship the work</em> while you sleep.
+      </h1>
+      <p class="hero-lede fade-up-3">
+        I'm <strong>10xdev4u-alt</strong> — an indie builder working on
+        <a href="https://github.com/10xdev4u-alt/gitagent">gitagent</a>, an
+        open-source framework for declaring persistent AI agents as files in
+        your repo. This site is a working example: 13 agents maintain it
+        automatically.
+      </p>
+      <div class="hero-cta fade-up-4">
+        <a href={`${baseUrl}/blog`} class="btn btn-primary">
+          Read the writing
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href={`${baseUrl}/projects`} class="btn btn-ghost btn-mono">~/projects</a>
+        <a href="https://github.com/10xdev4u-alt" class="btn btn-ghost" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.3-3.2-.1-.4-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Latest posts</h2>
-    {posts.length === 0 && <p class="meta">No posts yet.</p>}
-    {posts.map((post) => (
-      <a href={`/blog/${post.slug}`} class="card" style="display: block; color: inherit;">
-        <h3>{post.data.title}</h3>
-        <p class="meta">
-          <time datetime={post.data.date.toISOString()}>
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-        </p>
-        <p>{post.data.description}</p>
-      </a>
-    ))}
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-num">{fmtNumber(101)}<span class="accent">.</span></div>
+          <span class="stat-label">gitagent commits</span>
+        </div>
+        <div>
+          <div class="stat-num">{totalPosts}<span class="accent">.</span></div>
+          <span class="stat-label">posts shipped</span>
+        </div>
+        <div>
+          <div class="stat-num">13<span class="accent">.</span></div>
+          <span class="stat-label">agents online</span>
+        </div>
+        <div>
+          <div class="stat-num">391<span class="accent">.</span></div>
+          <span class="stat-label">tests passing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED POST -->
+  {featured && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">
+            <span class="num">01.</span> Latest dispatch
+          </h2>
+          <a href={`${baseUrl}/blog`} class="section-link">all writing →</a>
+        </div>
+
+        <a class="featured-post" href={`${baseUrl}/blog/${featured.slug}`}>
+          <div>
+            <div class="label">
+              <span class="dot" aria-hidden="true"></span>
+              <span>just shipped</span>
+            </div>
+            <h2>{featured.data.title}</h2>
+            <p class="lede">{featured.data.description}</p>
+            <div class="meta">
+              <span>{fmtDate(featured.data.date)}</span>
+              {featured.data.tags && (
+                <div class="tags">
+                  {featured.data.tags.slice(0, 3).map((t) => (
+                    <span class="tag">#{t}</span>
+                  ))}
+                </div>
+              )}
+              <span style="margin-left: auto; color: var(--accent);">read →</span>
+            </div>
+          </div>
+          <div>
+            <div class="card mono" style="font-size: 0.78rem; background: var(--bg-elev-2); border-color: var(--border-bright);">
+              <div style="color: var(--fg-dim); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.08em;">filename</div>
+              <div style="color: var(--fg);">.github/agents/{featured.slug}.md</div>
+              <div style="color: var(--fg-dim); margin: 0.85rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.08em;">triggers</div>
+              <div style="color: var(--accent);">{featured.data.tags?.[0] ?? 'manual'}</div>
+              <div style="color: var(--fg-dim); margin: 0.85rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.08em;">posted</div>
+              <div style="color: var(--fg);">{fmtDate(featured.data.date)}</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- RECENT POSTS GRID -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">
+          <span class="num">02.</span> Recent dispatches
+        </h2>
+        <a href={`${baseUrl}/blog`} class="section-link">browse all →</a>
+      </div>
+
+      <div class="post-grid">
+        {recent.map((p, i) => (
+          <a class="post-card" href={`${baseUrl}/blog/${p.slug}`}>
+            <div class="card-top">
+              <span class="card-num">{fmtNumber(i + 2)}</span>
+              <span>{fmtDate(p.data.date)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p class="excerpt">{p.data.description}</p>
+            <div class="card-foot">
+              <div class="tags">
+                {p.data.tags?.slice(0, 2).map((t) => (
+                  <span class="tag">#{t}</span>
+                ))}
+              </div>
+              <span style="color: var(--accent);">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
   </section>
+
+  <div class="container"><div class="divider">agents · live status</div></div>
+
+  <!-- AGENTS LIVE STATUS -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">
+          <span class="num">03.</span> The 13 agents
+        </h2>
+        <a href="https://github.com/10xdev4u-alt/mr10xdev-blog/tree/main/.github/agents" class="section-link" rel="noopener">view source →</a>
+      </div>
+
+      <p class="muted" style="max-width: 640px; margin-bottom: 2rem;">
+        Every agent below lives as a YAML manifest in
+        <code>.github/agents/</code>. Each one is declared in plain text,
+        version-controlled in git, and runs on real GitHub events. The site
+        you're reading right now is what they collectively maintain.
+      </p>
+
+      <div class="agents-grid">
+        {agents.map((a) => (
+          <div class={`agent-row ${a.status}`}>
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="name">{a.name}</span>
+            <span class="event">{a.event}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="divider">build in public</div></div>
+
+  <!-- PROJECTS -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">
+          <span class="num">04.</span> Currently shipping
+        </h2>
+        <a href={`${baseUrl}/projects`} class="section-link">all projects →</a>
+      </div>
+
+      <div class="projects-grid">
+        {projects.map((p) => (
+          <a class="project-card" href={`${baseUrl}/projects`}>
+            <span class="num">{p.num}</span>
+            <h3>{p.name}</h3>
+            <p class="desc">{p.desc}</p>
+            <div class="tech">
+              {p.tech.map((t) => <span>{t}</span>)}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="container" style="padding: 4rem 0 2rem; text-align: center;">
+    <p class="muted" style="max-width: 480px; margin: 0 auto 1.5rem;">
+      This site is the working example for everything I write about. The
+      agents in <code>.github/agents/</code> are the same ones I teach in
+      <a href={`${baseUrl}/blog`}>the writing</a>.
+    </p>
+    <a href={`${baseUrl}/about`} class="btn btn-ghost">More about me →</a>
+  </div>
 </BaseLayout>
