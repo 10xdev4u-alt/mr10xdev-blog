@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReadingTime from '../../components/ReadingTime.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -36,6 +37,7 @@ const { Content } = await post.render();
       </p>
     </header>
     <Content />
+    <RelatedPosts current={post} />
     <hr />
     <p>
       <a href="/blog">&larr; All posts</a>

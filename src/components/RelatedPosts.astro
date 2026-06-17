@@ -1,0 +1,81 @@
+---
+/**
+ * RelatedPosts — show up to 3 related posts based on shared tags.
+ */
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  current: CollectionEntry<'blog'>;
+  limit?: number;
+}
+
+const { current, limit = 3 } = Astro.props;
+const all = await getCollection('blog');
+const currentTags = new Set(current.data.tags ?? []);
+
+const related = all
+  .filter((p) => p.slug !== current.slug)
+  .map((p) => ({
+    post: p,
+    overlap: (p.data.tags ?? []).filter((t) => currentTags.has(t)).length,
+  }))
+  .filter((p) => p.overlap > 0)
+  .sort((a, b) => b.overlap - a.overlap)
+  .slice(0, limit);
+---
+
+{related.length > 0 && (
+  <section class="related-posts">
+    <h2>Related posts</h2>
+    <ul>
+      {related.map(({ post }) => (
+        <li>
+          <a href={`/blog/${post.slug}`}>
+            <strong>{post.data.title}</strong>
+            <span class="related-desc">{post.data.description}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .related-posts {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .related-posts h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .related-posts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .related-posts li {
+    margin-bottom: 0.75rem;
+  }
+  .related-posts a {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: inherit;
+  }
+  .related-posts a:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .related-posts strong {
+    display: block;
+    color: var(--fg);
+  }
+  .related-desc {
+    color: var(--fg-muted);
+    font-size: 0.85rem;
+  }
+</style>
