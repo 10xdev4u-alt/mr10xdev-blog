@@ -1,14 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorLayout from '../layouts/ErrorLayout.astro';
 ---
 
-<BaseLayout title="404 — Mr. 10x Dev">
-  <section class="hero">
-    <h1>404</h1>
-    <p>That page doesn't exist. Or it did, and an agent moved it.</p>
-    <p style="margin-top: 2rem;">
-      <a href="/">Back to home</a> &middot;
-      <a href="/blog">Read the blog</a>
-    </p>
-  </section>
-</BaseLayout>
+<ErrorLayout title="404 — Page not found" description="The page you're looking for doesn't exist. It might have been moved or never existed.">
+  <p style="margin-top: 1rem;">
+    If you arrived here from a link, please <a href="https://github.com/10xdev4u-alt/mr10xdev-blog/issues">open an issue</a> and let me know.
+  </p>
+</ErrorLayout>

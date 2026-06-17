@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const { title = '404', description = 'Page not found' } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="hero">
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </section>
+  <section>
+    <h2>What now?</h2>
+    <ul>
+      <li><a href="/">Go home</a></li>
+      <li><a href="/blog">Read the blog</a></li>
+      <li><a href="/projects">See the projects</a></li>
+      <li><a href="/now">What I'm doing now</a></li>
+    </ul>
+    <p style="margin-top: 2rem;">
+      Or use the search bar at the top of the blog to find what you were looking for.
+    </p>
+  </section>
+</BaseLayout>
