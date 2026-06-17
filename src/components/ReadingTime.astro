@@ -1,0 +1,22 @@
+---
+/**
+ * ReadingTime — display the estimated reading time of a post.
+ * Uses a 200 wpm average.
+ */
+interface Props {
+  body: string;
+}
+
+const { body } = Astro.props;
+const words = body.split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+---
+
+<span class="reading-time">· {minutes} min read</span>
+
+<style>
+  .reading-time {
+    color: var(--fg-dim);
+    font-size: 0.85rem;
+  }
+</style>
