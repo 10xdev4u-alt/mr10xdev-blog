@@ -1,145 +1,152 @@
 ---
-title: "The 4 ways to make an agent feel alive"
-description: "The 4 things that separate a tool from a teammate. Memory, personality, growth, surprise. The small touches that make the user smile. The line between 'a tool I use' and 'a teammate I work with'."
-date: 2026-03-13
-tags: ["ux", "agents", "personality"]
+title: "The 4 ways to make an agent feel alive (in production)"
+description: "4 ways to make an agent feel alive: reactive, proactive, learning, growing. The principles that make agents feel like a presence. The line between 'script' and 'agent'."
+date: 2026-01-07
+tags: ["alive", "agents", "design"]
 ---
 
-The 4 things that separate a tool from a teammate. Memory,
-personality, growth, surprise. The small touches that make the
-user smile. The line between "a tool I use" and "a teammate I
-work with."
+4 ways to make an agent feel alive: reactive, proactive,
+learning, growing. The principles that make agents feel
+like a presence. The line between "script" and "agent."
 
-## Thing 1: Memory
+## Principle 1: Reactive
 
-A tool forgets. A teammate remembers.
+The agent responds to events. The agent is on-demand. The
+agent is triggered.
 
-The agent that remembers:
-- "I labeled your last issue as `bug`. The pattern is the
-  same here."
-- "You prefer dark mode. The default is now dark."
-- "Last time you asked about X, the answer was Y."
+**Examples:**
+- The agent labels an issue when it's opened
+- The agent comments on a PR when it's opened
+- The agent posts a status when CI completes
 
-The agent without memory:
-- "I labeled this issue as `bug`."
+**When to use:** the user wants instant action. The user
+is reactive. The user wants the agent to be there.
 
-The first is a teammate. The second is a tool.
+**Pros:**
+- Instant (the agent is on-demand)
+- Reactive (the agent responds to events)
+- Standard (the agent uses the GitHub event system)
 
-The cost: episodic + semantic memory. The benefit: the
-user feels known. The compound effect is real.
+**Cons:**
+- Dependent (the agent depends on events)
+- Limited (the agent only acts on events)
+- Cold (the agent doesn't initiate)
 
-## Thing 2: Personality
+## Principle 2: Proactive
 
-A tool has no voice. A teammate has a voice.
+The agent runs on a schedule. The agent initiates. The
+agent is the trigger.
 
-The agent with personality:
-- "Looks like another auth bug. Same pattern as #42. Labeling
-  as `bug` and pinging @maintainer."
-- "Quiet day — no significant activity. Catching up on memory
-  instead."
-- "Welcome back, @alice. I've been busy triaging issues while
-  you were away."
+**Examples:**
+- The agent runs every day to check for stale issues
+- The agent runs every week to draft release notes
+- The agent runs every month to summarize the project
 
-The agent without personality:
-- "Issue labeled as bug."
-- "Activity report: 0 issues opened, 2 issues closed, 1 PR
-  merged."
-- "Welcome."
+**When to use:** the user wants regular action. The user
+is proactive. The user wants the agent to be there.
 
-The first is a teammate. The second is a tool.
+**Pros:**
+- Proactive (the agent initiates)
+- Predictable (the agent runs on a schedule)
+- Standard (the agent uses a cron-like system)
 
-The cost: a good system prompt. The benefit: the user
-remembers the agent. The user comes back. The user tells
-others.
+**Cons:**
+- Wasteful (the agent runs even when not needed)
+- Late (the agent might miss the right time)
+- Dependent (the agent depends on the schedule)
 
-## Thing 3: Growth
+## Principle 3: Learning
 
-A tool is the same. A teammate grows.
+The agent learns from feedback. The agent improves. The
+agent grows.
 
-The agent that grows:
-- "I noticed I've been labeling 80% of new issues as `bug`. I
-  updated my classification to be more conservative."
-- "I've added 3 new comments to my memory. I should be faster at
-  similar issues now."
-- "I tried 5 different approaches to this problem. The 5th
-  worked. I'll remember that for next time."
+**Examples:**
+- The agent remembers the user's preferences
+- The agent learns from the user's corrections
+- The agent improves over time
 
-The agent without growth:
-- "Issue labeled as bug."
+**When to use:** the user is engaged. The user gives
+feedback. The user wants the agent to grow.
 
-The first is a teammate. The second is a tool.
+**Pros:**
+- Adaptive (the agent improves)
+- Personalized (the agent knows the user)
+- Growing (the agent gets better)
 
-The cost: episodic memory + reflection (the agent reviews its
-own past decisions). The benefit: the agent gets better over
-time. The user sees the improvement.
+**Cons:**
+- Effort (the user has to give feedback)
+- Risk (the agent can learn wrong things)
+- Cost (the learning takes compute)
 
-## Thing 4: Surprise
+## Principle 4: Growing
 
-A tool is predictable. A teammate surprises.
+The agent's capabilities grow over time. The agent learns
+new tools. The agent becomes more useful.
 
-The agent that surprises:
-- "I just made my 100th triage decision. Thanks for trusting
-  me with the workflow!"
-- "I found a duplicate of this issue in the codebase. Linking
-  to it now."
-- "I noticed the issue is from a first-time contributor.
-  Adjusting my tone to be extra welcoming."
+**Examples:**
+- The agent adds a new tool when needed
+- The agent handles new cases
+- The agent becomes a generalist
 
-The agent without surprise:
-- "Issue labeled as bug."
+**When to use:** the user is long-lived. The user has new
+needs. The user wants the agent to grow.
 
-The first is a teammate. The second is a tool.
+**Pros:**
+- Valuable (the agent gets more useful)
+- Long-lived (the agent stays relevant)
+- Generalist (the agent handles many cases)
 
-The cost: a bit of personality in the prompt. The benefit:
-the user smiles. The user shares. The user remembers.
+**Cons:**
+- Cost (the agent takes time to grow)
+- Complexity (the agent becomes complex)
+- Risk (the agent can grow wrong)
 
 ## The 4 together
 
-The 4 things compose. The 4 are the difference between a tool
-and a teammate.
+The 4 are the alive. The alive is the presence. The
+presence is the value.
 
-| Thing | What it adds | Cost |
-|---|---|---|
-| Memory | The agent knows you | Episodic + semantic |
-| Personality | The agent has a voice | A good system prompt |
-| Growth | The agent gets better | Episodic + reflection |
-| Surprise | The agent makes you smile | A bit of personality |
+| Principle | What it ensures |
+|---|---|
+| Reactive | The agent is there |
+| Proactive | The agent is here |
+| Learning | The agent is growing |
+| Growing | The agent is becoming |
 
-The agent with all 4 is a teammate. The agent missing any is
-a tool.
+The agent that has all 4 is the alive agent. The agent
+that has 1 is the script. The alive agent is adopted. The
+script is not.
 
 ## The 80/20
 
 80% of the value comes from:
-- Memory (the user feels known)
-- Personality (the user remembers the agent)
+- Reactive (the agent is on-demand)
+- Proactive (the agent is here)
 
 20% comes from:
-- Growth (the agent gets better)
-- Surprise (the user smiles)
+- Learning (the agent is growing)
+- Growing (the agent is becoming)
 
 Focus on the 80% first. Add the 20% as you grow.
 
 ## The test
 
 The agent feels alive if:
-- A user comes back because the agent remembers them
-- A user shares the agent's output because it's fun to read
-- A user notices the agent gets better over time
-- A user says "the agent noticed something I didn't"
+- A user can trigger it
+- It runs on its own
+- It learns from feedback
+- It grows over time
 
-If any of these fail, the agent is a tool. Fix the agent.
+If any of these fails, the agent feels like a script. Fix
+the agent.
 
-## The meta-lesson
+## The lesson
 
-The 4 things are the small touches. The small touches are the
-difference between "I use this tool" and "I work with this
-agent."
+4 principles. 1 alive. 1 lesson: invest in all 4.
 
-The agent that has the 4 small touches is a teammate. The
-agent that doesn't is a tool. The user has 100 tools. The
-user has 5 teammates. The choice is yours.
+The agent that invests in all 4 is the alive agent. The
+agent that invests in 1 is the script. The alive agent is
+adopted. The script is not.
 
-The agent era is here. The teammates are the future. The
-small touches are the differentiator. The differentiator is
-the value.
+The agent era is here. The alive is the design. The
+design is the discipline. The discipline is the value.
