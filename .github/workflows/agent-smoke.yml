@@ -1,0 +1,29 @@
+name: Agent smoke test
+
+on:
+  pull_request:
+    paths:
+      - '.github/agents/**'
+      - '.github/workflows/agent-*.yml'
+
+jobs:
+  validate-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install gitagent
+        run: npm install -g gitagent
+      - name: Validate all agent manifests
+        run: gitagent validate
+      - name: Smoke-test the doc agent (dry-run)
+        run: |
+          gitagent dev \
+            --event manual \
+            --agent doc \
+            --payload .github/agents/test-payload.json \
+            --repo ${{ github.repository }} \
+            --dry-run || true
+        continue-on-error: true

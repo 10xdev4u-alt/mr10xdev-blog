@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://10xdev4u-alt.github.io',
@@ -12,4 +13,5 @@ export default defineConfig({
       theme: 'github-dark-dimmed',
     },
   },
+  integrations: [sitemap()],
 });

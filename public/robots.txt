@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://10xdev4u-alt.github.io/mr10xdev-blog/sitemap-index.xml
