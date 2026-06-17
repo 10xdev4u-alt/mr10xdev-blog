@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const supporters = [
+  {
+    name: 'Anthropic',
+    reason: 'For building Claude, the model that powers most of my agents',
+    url: 'https://anthropic.com',
+  },
+  {
+    name: 'GitHub',
+    reason: 'For Actions, Pages, and the entire OSS ecosystem',
+    url: 'https://github.com',
+  },
+  {
+    name: 'Cloudflare',
+    reason: 'For Workers, R2, and the edge platform that makes global deploys trivial',
+    url: 'https://cloudflare.com',
+  },
+  {
+    name: 'Vercel',
+    reason: 'For making deploys feel like magic',
+    url: 'https://vercel.com',
+  },
+  {
+    name: 'Astro',
+    reason: 'For building this very site in 2 hours',
+    url: 'https://astro.build',
+  },
+  {
+    name: 'Vitest',
+    reason: 'For the testing framework that makes 200+ tests a joy to write',
+    url: 'https://vitest.dev',
+  },
+  {
+    name: 'TypeScript',
+    reason: 'For the type system that catches 200+ bugs at compile time',
+    url: 'https://typescriptlang.org',
+  },
+  {
+    name: 'Bun',
+    reason: 'For the runtime that makes tests 5x faster',
+    url: 'https://bun.sh',
+  },
+  {
+    name: 'Zod',
+    reason: 'For the validation library that makes input checking trivial',
+    url: 'https://zod.dev',
+  },
+  {
+    name: 'Biome',
+    reason: 'For replacing ESLint + Prettier with one fast tool',
+    url: 'https://biomejs.dev',
+  },
+  {
+    name: 'Octokit',
+    reason: 'For the GitHub API client that powers every tool',
+    url: 'https://github.com/octokit',
+  },
+  {
+    name: 'Hono',
+    reason: 'For the web framework that powers gitagent',
+    url: 'https://hono.dev',
+  },
+];
+
+const people = [
+  {
+    name: 'My family',
+    reason: 'For supporting the indie journey',
+  },
+  {
+    name: 'The TeamMavericKX team',
+    reason: 'For being the original community that taught me to ship',
+  },
+  {
+    name: 'The 10xdev4u-alt community',
+    reason: 'For the early feedback on every project',
+  },
+];
+---
+
+<BaseLayout title="Acknowledgments — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Acknowledgments</h1>
+    <p>The people and projects that made this work possible.</p>
+  </section>
+
+  <section>
+    <h2>Open source projects</h2>
+    <p>Every project I build stands on the shoulders of giants. Here are some of the OSS projects that power my work:</p>
+    <ul>
+      {supporters.map((s) => (
+        <li>
+          <strong>{s.name}</strong> — {s.reason}
+          {s.url && <a href={s.url}>&rarr;</a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>People</h2>
+    <p>The humans behind the work:</p>
+    <ul>
+      {people.map((p) => (
+        <li>
+          <strong>{p.name}</strong> — {p.reason}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>And you</h2>
+    <p>Thank you for reading. If anything on this site has been useful, consider <a href="/sponsors">sponsoring</a> or <a href="https://github.com/10xdev4u-alt">starring a repo</a>. The work continues because of people like you.</p>
+  </section>
+</BaseLayout>
