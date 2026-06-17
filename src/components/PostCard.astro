@@ -1,0 +1,63 @@
+---
+// PostCard — reusable card for displaying a blog post preview.
+interface Props {
+  url: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+  compact?: boolean;
+}
+
+const { url, title, description, date, tags = [], compact = false } = Astro.props;
+const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<a href={url} class:list={['post-card', { compact }]} style="display: block; color: inherit;">
+  <h3>{title}</h3>
+  <p class="meta">
+    <time datetime={date.toISOString()}>{dateStr}</time>
+    {tags.length > 0 && (
+      <span class="tags" style="margin-left: 0.5rem;">
+        {tags.map((t) => <span class="tag">{t}</span>)}
+      </span>
+    )}
+  </p>
+  <p>{description}</p>
+</a>
+
+<style>
+  .post-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .post-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .post-card.compact {
+    padding: 1rem;
+  }
+  .post-card h3 {
+    margin: 0 0 0.5rem;
+    color: var(--fg);
+  }
+  .post-card p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 0.925rem;
+  }
+  .post-card .meta {
+    margin: 0 0 0.5rem;
+    color: var(--fg-dim);
+    font-size: 0.8rem;
+  }
+  .post-card .tags {
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+</style>
