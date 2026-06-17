@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const milestones = [
+  { date: '2018-01', label: 'Wrote my first line of code', emoji: '💻' },
+  { date: '2019-06', label: 'First job as a backend engineer', emoji: '💼' },
+  { date: '2020-09', label: 'Started contributing to OSS', emoji: '🌱' },
+  { date: '2021-11', label: 'Built my first indie SaaS', emoji: '🚀' },
+  { date: '2022-04', label: 'Shipped my first 100 GitHub stars', emoji: '⭐' },
+  { date: '2023-08', label: 'Went full-time indie', emoji: '🎯' },
+  { date: '2024-02', label: 'Founded TeamMavericKX on GitHub', emoji: '🏢' },
+  { date: '2024-11', label: 'Shipped my first AI agent', emoji: '🤖' },
+  { date: '2025-06', label: 'Project PARASITE won RIFT Hackathon', emoji: '🏆' },
+  { date: '2026-01', label: 'Shipped Husk v1.0', emoji: '🎉' },
+  { date: '2026-04', label: 'Shipped gitagent v0.1', emoji: '🛠️' },
+  { date: '2026-06', label: 'Launched mr10xdev-blog', emoji: '📝' },
+];
+---
+
+<BaseLayout title="Timeline — Mr. 10x Dev">
+  <section class="hero">
+    <h1>Timeline</h1>
+    <p>Key moments in 8 years of building.</p>
+  </section>
+
+  <section>
+    <ol class="timeline">
+      {milestones.map((m) => (
+        <li class="milestone">
+          <span class="emoji">{m.emoji}</span>
+          <div class="content">
+            <time>{m.date}</time>
+            <p>{m.label}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .milestone {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .emoji {
+    width: 3rem;
+    height: 3rem;
+    background: var(--bg-elev);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .content {
+    margin-left: 1.5rem;
+    flex: 1;
+  }
+  .content time {
+    color: var(--fg-dim);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+  .content p {
+    margin: 0.25rem 0 0;
+    color: var(--fg);
+  }
+</style>
