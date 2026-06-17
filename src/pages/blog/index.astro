@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import Search from '../../components/Search.astro';
+import PostCard from '../../components/PostCard.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
@@ -13,23 +14,18 @@ const posts = (await getCollection('blog')).sort(
     <p>Notes on shipping AI tools, the build-in-public journey, and the meta of being Mr. 10x Dev.</p>
   </section>
 
+  <Search />
+
   <section>
     {posts.length === 0 && <p>(No posts yet. Check back soon.)</p>}
     {posts.map((post) => (
-      <a href={`/blog/${post.slug}`} class="card" style="display: block; color: inherit;">
-        <h3>{post.data.title}</h3>
-        <p class="meta">
-          <time datetime={post.data.date.toISOString()}>
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-          {post.data.tags && post.data.tags.length > 0 && (
-            <span style="margin-left: 0.5rem;">
-              {post.data.tags.map((t) => <span class="tag">{t}</span>)}
-            </span>
-          )}
-        </p>
-        <p>{post.data.description}</p>
-      </a>
+      <PostCard
+        url={`/blog/${post.slug}`}
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        tags={post.data.tags}
+      />
     ))}
   </section>
 </BaseLayout>
